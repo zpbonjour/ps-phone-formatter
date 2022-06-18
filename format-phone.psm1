@@ -52,13 +52,13 @@ function format-phone {
               $OutputNumber = "+" + $phone_country + "(" + $phone_area + ")" + $phone_prefix + "-" + $phone_line
               }
 
-     $OutputObject = [PSCustomObject]@{
-      CountryCode = $phone_country
-      AreaCode    = $phone_area
-      CityPrefix  = $phone_prefix
-      PhoneLine   = $phone_line
-      FullNumber = $OutputNumber
-            }
+    $OutputObject = [PSCustomObject]@{
+        CountryCode  = $phone_country
+        AreaCode     = $phone_area
+        CityPrefix   = $phone_prefix
+        PhoneLine    = $phone_line
+        FullNumber   = $OutputNumber
+    }
     
     $OutputObject
 
