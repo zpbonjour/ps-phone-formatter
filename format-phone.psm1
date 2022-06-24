@@ -44,24 +44,28 @@ function format-phone {
     $phone_prefix  = $phonearray[-7..-5] -join("")
     $phone_line    = $phonearray[-4..-1] -join("")
 
-    if ([string]::IsNullOrEmpty($phone_country)) {
-        $OutputNumber = "(" + $phone_area + ")" + $phone_prefix + "-" + $phone_line
-        if ($OutputNumber.length -lt 11) {$OutputNumber = $OutputNumber.Trim('()')}
-        if ($OutputNumber.length -lt 6) {$OutputNumber = $OutputNumber.Trim('()-')}
-           } Else {
-              $OutputNumber = "+" + $phone_country + "(" + $phone_area + ")" + $phone_prefix + "-" + $phone_line
-              }
+    Switch ($OutputNumber) {
+        # 1-4 digits
+        {($_.length) -gt 0 -and ($_.length) -lt 5}  {$OutputNumber = $phone_line}
+
+        # 5-7 digits
+        {($_.length) -gt 4 -and ($_.length) -lt 8} {$OutputNumber = $phone_prefix + "-" + $phone_line}
+
+        # 8-10 digits
+        {($_.length) -gt 7 -and ($_.length) -lt 11} {$OutputNumber = "(" + $phone_area + ")" + " " + $phone_prefix + "-" + $phone_line}
+
+        # more than 10 digits
+        {($_.length) -gt 10} {$OutputNumber = "+" + $phone_country + "(" + $phone_area + ")" + " " + $phone_prefix + "-" + $phone_line}
+    }
 
     $OutputObject = [PSCustomObject]@{
         CountryCode  = $phone_country
         AreaCode     = $phone_area
         CityPrefix   = $phone_prefix
         PhoneLine    = $phone_line
-        FullNumber   = $OutputNumber
+        PrettyNumber = $OutputNumber
+        PrettyNoIntl = $OutputNumber.Replace(("+" + $phone_country),"")
+        PlainNumber  = $OutputNumber -replace "[^0-9]"
     }
-    
     $OutputObject
-
-
 }
-    
