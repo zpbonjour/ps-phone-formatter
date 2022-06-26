@@ -6,8 +6,10 @@ function Format-Phone {
     
     .DESCRIPTION
         This function will take a string of numbers and letters or special characters and output a formatted
-        phone number object.  All non-interger characters are stripped out and replaced in the proper place
-    
+        phone number object.  All non-interger characters are stripped out and replaced in the proper place.
+        This module was created with US phone numbers in mind.  If you want to format for another country or
+        spec, please create an issue on GitHub.
+        
     .PARAMETER InputNumber
         This is the only parameter.  It is the number or string to be formatted
     
