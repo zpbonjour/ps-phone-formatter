@@ -26,3 +26,4 @@
     .NOTES
         Author:  Zachary Bonjour
         Website: https://www.linkedin.com/in/zachary-bonjour/
+        Report issues or bugs at https://github.com/zpbonjour/ps-phone-formatter
