@@ -1,4 +1,4 @@
-function format-phone {
+function Format-Phone {
 
     <#
     .SYNOPSIS
@@ -37,34 +37,34 @@ function format-phone {
           [string]$InputNumber
           )
 
-    $OutputNumber  = $InputNumber -replace "[^0-9]"
-    $phonearray    = $OutputNumber.ToCharArray()
-    $phone_country = $phonearray[-17..-11] -join("")
-    $phone_area    = $phonearray[-10..-8] -join("")
-    $phone_prefix  = $phonearray[-7..-5] -join("")
-    $phone_line    = $phonearray[-4..-1] -join("")
+    $OutputNumber = $InputNumber -replace "[^0-9]"
+    $PhoneArray   = $OutputNumber.ToCharArray()
+    $PhoneCountry = $PhoneArray[-17..-11] -join("")
+    $PhoneArea    = $PhoneArray[-10..-8] -join("")
+    $PhonePrefix  = $PhoneArray[-7..-5] -join("")
+    $PhoneLine    = $PhoneArray[-4..-1] -join("")
 
     Switch ($OutputNumber) {
         # 1-4 digits
-        {($_.length) -gt 0 -and ($_.length) -lt 5}  {$OutputNumber = $phone_line}
+        {($_.length) -gt 0 -and ($_.length) -lt 5}  {$OutputNumber = $PhoneLine}
 
         # 5-7 digits
-        {($_.length) -gt 4 -and ($_.length) -lt 8} {$OutputNumber = $phone_prefix + "-" + $phone_line}
+        {($_.length) -gt 4 -and ($_.length) -lt 8} {$OutputNumber = $PhonePrefix + "-" + $PhoneLine}
 
         # 8-10 digits
-        {($_.length) -gt 7 -and ($_.length) -lt 11} {$OutputNumber = "(" + $phone_area + ")" + " " + $phone_prefix + "-" + $phone_line}
+        {($_.length) -gt 7 -and ($_.length) -lt 11} {$OutputNumber = "(" + $PhoneArea + ")" + " " + $PhonePrefix + "-" + $PhoneLine}
 
         # more than 10 digits
-        {($_.length) -gt 10} {$OutputNumber = "+" + $phone_country + "(" + $phone_area + ")" + " " + $phone_prefix + "-" + $phone_line}
+        {($_.length) -gt 10} {$OutputNumber = "+" + $PhoneCountry + "(" + $PhoneArea + ")" + " " + $PhonePrefix + "-" + $PhoneLine}
     }
 
     $OutputObject = [PSCustomObject]@{
-        CountryCode  = $phone_country
-        AreaCode     = $phone_area
-        CityPrefix   = $phone_prefix
-        PhoneLine    = $phone_line
+        CountryCode  = $PhoneCountry
+        AreaCode     = $PhoneArea
+        CityPrefix   = $PhonePrefix
+        PhoneLine    = $PhoneLine
         PrettyNumber = $OutputNumber
-        PrettyNoIntl = $OutputNumber.Replace(("+" + $phone_country),"")
+        PrettyNoIntl = $OutputNumber.Replace(("+" + $PhoneCountry),"")
         PlainNumber  = $OutputNumber -replace "[^0-9]"
     }
     $OutputObject
