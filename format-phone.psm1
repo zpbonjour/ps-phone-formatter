@@ -15,10 +15,10 @@ function format-phone {
          format-phone -InputNumber +12349215237
     
     .EXAMPLE
-         format-phone -InputNumber 1-2349215237
+         (format-phone -InputNumber 1-2349215237).PrettyNumber
     
     .EXAMPLE
-         format-phone -InputNumber 6432215237
+         (format-phone -InputNumber 6432215237).AreaCode
     
     .INPUTS
         String
